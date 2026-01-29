@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>もあっぴー✌</title>
+  <style>
+    /* ダークモード & 基本スタイル */
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #e0e0e0;
+      --accent-color: #bb86fc;
+      --border-color: #333;
+      --input-bg: #252525;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+    }
+
+    /* 入力エリア */
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .input-box {
+      width: 100%;
+      height: 100px;
+      padding: 12px;
+      font-size: 16px; /* iOSの自動ズーム防止 */
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      resize: none;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-box:focus {
+      border-color: var(--accent-color);
+    }
+
+    button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: var(--accent-color);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+
+    /* 結果表示エリア */
+    .result {
+      margin-top: 25px;
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 16px;
+      width: 100%;
+      min-height: 100px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    .title-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 15px auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .result p {
+      font-size: 1rem;
+      white-space: pre-wrap; /* 改行を反映 */
+      word-wrap: break-word;
+      margin: 0;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 2px;
+      color: var(--accent-color);
+      font-weight: bold;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* スマホ向け微調整 */
+    @media (max-width: 480px) {
+      h1 { font-size: 1.2rem; }
+      .result { padding: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>もあっぴーーー✌</h1>
+
+    <textarea
+      id="inputBox"
+      class="input-box"
+      placeholder="メッセージを入力..."></textarea>
+    
+    <button id="sendButton" onclick="showRandom()">送信</button>
+
+    <div id="result" class="result" style="display: none;">
+      <img id="titleImage" class="title-img">
+      <p>
+        <span id="text"></span><span id="cursor" class="cursor">│</span>
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
