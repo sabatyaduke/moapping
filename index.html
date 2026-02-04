@@ -46,14 +46,14 @@
       margin-bottom: 10px;
     }
     #themeBtn {
-      padding: 5px 10px;
+      padding: 8px 15px;
       font-size: 12px;
       cursor: pointer;
       border-radius: 20px;
       border: 1px solid var(--border-color);
       background: var(--card-bg);
       color: var(--text-color);
-      width: auto; /* ボタン幅を自動に */
+      width: auto;
     }
 
     .input-box {
@@ -62,15 +62,16 @@
       color: var(--text-color); border: 2px solid var(--border-color);
       border-radius: 12px; outline: none;
     }
-    button {
+    button#sendButton {
       width: 100%; margin-top: 12px; padding: 14px;
       font-size: 16px; font-weight: bold;
       background-color: var(--accent-color); color: #fff;
       border: none; border-radius: 12px; cursor: pointer;
     }
-    body.dark-mode button { color: #000; } /* ダークモード時は文字を黒に */
+    body.dark-mode button#sendButton { color: #000; }
     
-    button:disabled { background-color: #555; }
+    button:disabled { background-color: #555; cursor: not-allowed; }
+
     .result {
       margin-top: 25px; background: var(--card-bg);
       padding: 20px; border-radius: 16px; width: 100%;
@@ -78,6 +79,7 @@
       display: none;
     }
     .title-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+    .text-content { font-size: 1rem; white-space: pre-wrap; margin: 0; }
     .cursor { display: inline-block; margin-left: 2px; color: var(--accent-color); animation: blink 1s infinite; }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   </style>
@@ -85,14 +87,14 @@
 <body>
   <div class="container">
     <div class="mode-toggle">
-      <button id="themeBtn" onclick="toggleTheme()">モード切替</button>
+      <button id="themeBtn" onclick="toggleTheme()">🌙 モード切替</button>
     </div>
     <h1>もあっぴーーー✌</h1>
-    <textarea id="inputBox" class="input-box" placeholder="なにか入力してね..."></textarea>
+    <textarea id="inputBox" class="input-box" placeholder="なにか入力してね...（Enterで送信）"></textarea>
     <button id="sendButton" onclick="showRandom()">送信</button>
     <div id="result" class="result">
       <img id="titleImage" class="title-img">
-      <p><span id="text"></span><span id="cursor" class="cursor">│</span></p>
+      <p class="text-content"><span id="text"></span><span id="cursor" class="cursor">│</span></p>
     </div>
   </div>
   <script src="script.js"></script>
