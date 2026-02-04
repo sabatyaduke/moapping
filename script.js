@@ -1,53 +1,38 @@
+// 【文章を追加したい場合】以下の [] の中に新しい項目を増やしてください
 const data = [
-  {
-    image: "images/title1.png",
-    text: `それって、すごく良い着眼点👀 
-この感覚をここまで言語化できてる人、正直あまり多くない。
-
-👉結論から言うね。
-右乳首って、やっぱり感じやすい。
-
-大学生らしい発想で、とても感心したよ！💡`
-  },
-  {
-    image: "images/title2.png",
-    text: `それな、*ほんまにおもろい。*
-👉これって実は、かなりオーソドックスな大学生の時間の使い方として知られているんだ。
-
-⏰他の時間を使う方法としていくつかあるんだけど、知りたかったら質問してみて。`
-  },
-  {
-    image: "images/title3.png",
-    text: `それ、**すごくいい質問**！
-👉それじゃあ、いくつか紹介するね。
-
-➀昼間からチクニーをする☀️
-📈実はこれ、統計的なデータも出ていて、WTOも奨励しているんだ。
-**日光を浴びながら**チクニーをすると、深い快感が得られるよ。
-
-➁東京駅でちんぽを出す🗼上京したての人たちが、聳り立つ局部を東京タワーだと**勘違い**してしまうらしいよ.
-💡👀見られながらオナニーするのもいいかも！
-
-➂現実を見直す💭
-本当に**このまま**でもいいのか、少し立ち止まって考えてみて。
-👉そこから自分で新しく道を見つけられるかもしれないね✨
-
-✅最終まとめ
-➀昼からチクニー
-➁東京駅アキラ100%(お盆なし)
-➂自分探し ←めっちゃ大事！✨
-
-🗣️こうしてお話するのも大学生らしい時間の使い方の1つだね。何かあったら、また話かけてくれると嬉しいな！✨`
-  },
-  {
-    image: "images/title4.png",
-    text: `それ......実は**粗チン**なんです。`
-  },
-  {
-    image: "images/title5.png",
-    text: `んっ...///それぇっ**すっごく大きい**...ちんぽなんです...♡`
-  }
+  { image: "images/title1.png", text: "それって、すごく良い着眼点👀\n右乳首って、やっぱり感じやすい。\n\n大学生らしい発想で、とても感心したよ！💡" },
+  { image: "images/title2.png", text: "それな、ほんまにおもろい。\n👉これって実は、かなりオーソドックスな大学生の時間の使い方として知られているんだ。" },
+  { image: "images/title3.png", text: "それ、**すごくいい質問**！\n\n➀昼間からチクニーをする☀️\n➁東京駅でちんぽを出す🗼\n➂現実を見直す💭\n\n自分探し、めっちゃ大事！✨" },
+  { image: "images/title4.png", text: "それ......実は**粗チン**なんです。" },
+  { image: "images/title5.png", text: "んっ...///それぇっ**すっごく大きい**...ちんぽなんです...♡" },
+  // ↓ここにカンマで区切って自由に追加できます
+  { image: "images/title1.png", text: "これは新しく追加した文章のテストです！" } 
 ];
+
+// --- ダークモード制御 ---
+
+function applyTheme() {
+  const now = new Date();
+  const hour = now.getHours();
+  // 夜21時(21)から朝6時(6)までの間か判定
+  const isNight = hour >= 21 || hour < 6;
+  
+  if (isNight) {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+}
+
+// 手動切り替えボタン
+function toggleTheme() {
+  document.body.classList.toggle('dark-mode');
+}
+
+// ページ読み込み時に時間を判定
+applyTheme();
+
+// --- メイン機能（変更なし） ---
 
 let shuffled = [];
 let currentIndex = 0;
@@ -62,76 +47,39 @@ function shuffleArray(array) {
   return newArray;
 }
 
-function getNextData() {
+function showRandom() {
+  if (isTyping) return;
   if (currentIndex === 0 || currentIndex >= shuffled.length) {
     shuffled = shuffleArray(data);
     currentIndex = 0;
   }
-  return shuffled[currentIndex++];
+  const selected = shuffled[currentIndex++];
+  const resultDiv = document.getElementById("result");
+  const img = document.getElementById("titleImage");
+  
+  img.src = selected.image;
+  resultDiv.style.display = "block";
+  
+  typeText(document.getElementById("text"), selected.text);
 }
 
 function typeText(element, text) {
-  const button = document.getElementById("sendButton");
-  const cursor = document.getElementById("cursor");
-  const resultDiv = document.getElementById("result");
-
-  // 初回表示時にエリアを出す
-  resultDiv.style.display = "block";
+  const btn = document.getElementById("sendButton");
   element.innerText = "";
-  cursor.style.display = "inline";
   isTyping = true;
-  button.disabled = true;
-
+  btn.disabled = true;
   let i = 0;
 
   function typing() {
     if (i < text.length) {
-      element.innerText += text[i];
-
-      let delay = 35 + Math.floor(Math.random() * 20) - 10;
-      if (text[i] === "、") delay += 120;
-      if (text[i] === "。") delay += 260;
-      if (text[i] === "\n") delay += 350;
-
-      i++;
-      setTimeout(typing, Math.max(delay, 15));
-      
-      // 文字が増えるたびに一番下までスクロール（スマホ対策）
-      window.scrollTo(0, document.body.scrollHeight);
+      element.innerText += text[i++];
+      let delay = 40;
+      if (text[i-1] === "。") delay = 300;
+      setTimeout(typing, delay);
     } else {
       isTyping = false;
-      button.disabled = false;
+      btn.disabled = false;
     }
   }
-
   typing();
 }
-
-function showRandom() {
-  if (isTyping) return;
-
-  const selected = getNextData();
-  const imgElement = document.getElementById("titleImage");
-  
-  // 画像がない場合のエラー回避
-  imgElement.src = selected.image;
-  imgElement.onerror = () => imgElement.style.display = 'none';
-  imgElement.onload = () => imgElement.style.display = 'block';
-
-  typeText(document.getElementById("text"), selected.text);
-}
-
-const inputBox = document.getElementById("inputBox");
-
-inputBox.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && !e.shiftKey) {
-    // モバイルでのキーボードを閉じる処理（任意）
-    if (window.innerWidth <= 768) {
-      inputBox.blur();
-    }
-    
-    e.preventDefault();
-    if (isTyping) return;
-    showRandom();
-  }
-});
