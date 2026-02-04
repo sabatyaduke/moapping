@@ -17,7 +17,6 @@ const data = [
 function applyTheme() {
   const now = new Date();
   const hour = now.getHours();
-  // 夜21時(21)から朝6時(6)までの間か判定
   const isNight = hour >= 21 || hour < 6;
   
   if (isNight) {
@@ -27,15 +26,13 @@ function applyTheme() {
   }
 }
 
-// 手動切り替えボタン
 function toggleTheme() {
   document.body.classList.toggle('dark-mode');
 }
 
-// ページ読み込み時に時間を判定
 applyTheme();
 
-// --- メイン機能（変更なし） ---
+// --- メインロジック ---
 
 let shuffled = [];
 let currentIndex = 0;
@@ -86,3 +83,12 @@ function typeText(element, text) {
   }
   typing();
 }
+
+// --- エンターキー送信機能の復活 ---
+document.getElementById("inputBox").addEventListener("keydown", (e) => {
+  // Enterキーが押され、かつShiftキーが押されていない場合
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault(); // 改行を防ぐ
+    showRandom();      // 送信処理を実行
+  }
+});
